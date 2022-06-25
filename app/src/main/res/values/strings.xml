@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MovieSearchKotlin</string>
+    <string name="app_for_searching_movies_header">App for searching movies</string>
+</resources>
