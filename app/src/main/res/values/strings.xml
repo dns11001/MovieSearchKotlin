@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MovieSearchKotlin</string>
     <string name="app_for_searching_movies_header">App for searching movies</string>
+    <string name="start_search_btn">Start search</string>
+    <string name="place_for_input_btn">Place for input</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now playing</string>
 </resources>
