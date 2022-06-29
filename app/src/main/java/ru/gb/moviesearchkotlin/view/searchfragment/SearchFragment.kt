@@ -31,16 +31,16 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
        binding = SearchFragmentBinding.inflate(inflater)
-       val data : Array<String> = resources.getStringArray(R.array.titles)
-       val recyclerViewOne: RecyclerView = binding.root.findViewById(R.id.menu_recycler_view)
-       val recyclerViewTwo: RecyclerView = binding.root.findViewById(R.id.menu2_recycler_view)
-       initRecycleView(recyclerViewOne, data)
-        initRecycleView(recyclerViewTwo,data)
        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val data : Array<String> = resources.getStringArray(R.array.titles)
+        val recyclerViewOne: RecyclerView = binding.root.findViewById(R.id.menu_recycler_view)
+        val recyclerViewTwo: RecyclerView = binding.root.findViewById(R.id.menu2_recycler_view)
+        initRecycleView(recyclerViewOne, data)
+        initRecycleView(recyclerViewTwo,data)
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         viewModel.liveData.observe(viewLifecycleOwner, object : Observer<AppState> {
             override fun onChanged(t: AppState) {
