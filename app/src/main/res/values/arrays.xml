@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="titles">
-    <item>One</item>
-    <item>Two</item>
-    <item>Three</item>
-    <item>Four</item>
-    <item>Five</item>
-    <item>Six</item>
-    </string-array>>
+    <string-array name="posters">
+    <item>gladiator</item>
+    <item>leon</item>
+    <item>matrix</item>
+    <item>lord_of_the_rings</item>
+    <item>borat</item>
+    <item>rocky</item>
+    </string-array>
+
+    <string-array name="names">
+        <item>Гладиатор</item>
+        <item>Леон</item>
+        <item>Матрица</item>
+        <item>Властелин Колец</item>
+        <item>Борат</item>
+        <item>Роки</item>
+    </string-array>
+
+    <string-array name="names_original">
+        <item>Gladiator</item>
+        <item>Leon</item>
+        <item>Matrix</item>
+        <item>Lord of the Rings</item>
+        <item>Borat</item>
+        <item>Rocky</item>
+    </string-array>
 </resources>

@@ -1,57 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blueish"
-        android:text="@string/app_for_searching_movies_header"
-        android:textSize="@dimen/search_fragment_header_size"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="50dp"/>
-
+    android:id="@+id/search_fragment">
     <LinearLayout
-        android:id="@+id/first_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/now_playing"
+            android:background="@color/blueish"
+            android:text="@string/app_for_searching_movies_header"
             android:textSize="@dimen/search_fragment_header_size"
-            android:textAlignment="center"/>
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="50dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/menu_recycler_view"
+        <LinearLayout
+            android:id="@+id/first_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="horizontal" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/now_playing"
+                android:textSize="@dimen/search_fragment_header_size"
+                android:textAlignment="center"/>
 
-    <LinearLayout
-        android:id="@+id/second_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-        <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menu_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/second_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/upcoming"
-            android:textSize="@dimen/search_fragment_header_size"
-            android:textAlignment="center"/>
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/upcoming"
+                android:textSize="@dimen/search_fragment_header_size"
+                android:textAlignment="center"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/menu2_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="horizontal" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menu2_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="horizontal" />
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
