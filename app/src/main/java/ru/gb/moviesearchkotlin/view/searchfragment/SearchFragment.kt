@@ -15,6 +15,7 @@ import ru.gb.moviesearchkotlin.R
 import ru.gb.moviesearchkotlin.databinding.SearchFragmentBinding
 import ru.gb.moviesearchkotlin.model.Movie
 import ru.gb.moviesearchkotlin.viewmodel.AppState
+import ru.gb.moviesearchkotlin.viewmodel.MovieAdapter
 import ru.gb.moviesearchkotlin.viewmodel.MovieFragment
 import ru.gb.moviesearchkotlin.viewmodel.SearchViewModel
 

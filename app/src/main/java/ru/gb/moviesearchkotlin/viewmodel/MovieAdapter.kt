@@ -1,17 +1,14 @@
-package ru.gb.moviesearchkotlin.view.searchfragment
+package ru.gb.moviesearchkotlin.viewmodel
 
-import android.content.ContentProvider
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import ru.gb.moviesearchkotlin.R
 import ru.gb.moviesearchkotlin.model.Movie
-import java.security.AccessController.getContext
 
 
 class MovieAdapter(private val dataSet: ArrayList<Movie>, private val resources: Resources) :
