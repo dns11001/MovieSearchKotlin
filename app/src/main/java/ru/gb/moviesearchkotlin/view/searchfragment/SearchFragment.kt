@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.gb.moviesearchkotlin.R
 import ru.gb.moviesearchkotlin.databinding.SearchFragmentBinding
 import ru.gb.moviesearchkotlin.model.Movie
@@ -51,11 +52,8 @@ class SearchFragment : Fragment() {
         initRecycleView(recyclerViewOne, data)
         initRecycleView(recyclerViewTwo,data)
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
-        viewModel.liveData.observe(viewLifecycleOwner, object : Observer<AppState> {
-            override fun onChanged(t: AppState) {
-                renderData(t)
-            }
-        })
+        viewModel.liveData.observe(viewLifecycleOwner
+        ) { t -> renderData(t) }
         viewModel.sentRequest()
     }
 
@@ -70,9 +68,10 @@ class SearchFragment : Fragment() {
             override fun onClickListener(position: Int) {
                 val movie = data[position]
 
-                childFragmentManager.beginTransaction()
+                requireActivity().supportFragmentManager.beginTransaction()
                     .add(R.id.search_fragment, MovieFragment.newInstance(movie))
-                    .commitNow()
+                    .addToBackStack("")
+                    .commit()
             }
         })
 
@@ -82,14 +81,15 @@ class SearchFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Error -> {
-                Toast.makeText(requireContext(), "Ошибка: $appState", Toast.LENGTH_SHORT).show()
+                binding.root.createAndShow("Ошибка!", "Ясно", { })
             }
             is AppState.Loading -> {
                 Toast.makeText(requireContext(), "Загружается...", Toast.LENGTH_LONG).show()
             }
             is AppState.Success -> {
-                Toast.makeText(requireContext(), "Результат: $appState", Toast.LENGTH_LONG).show()
+                binding.root.createAndShow("Результат: $appState", "Ясно", { })
             }
+            else -> {}
         }
     }
 
@@ -102,5 +102,11 @@ class SearchFragment : Fragment() {
 
         return arrayMovie
     }
+
+    fun View.createAndShow(text: String, actionText: String, action: (View)
+    -> Unit, length: Int = Snackbar.LENGTH_INDEFINITE) {
+        Snackbar.make(this, text, length).setAction(actionText, action).show()
+    }
+
 
 }

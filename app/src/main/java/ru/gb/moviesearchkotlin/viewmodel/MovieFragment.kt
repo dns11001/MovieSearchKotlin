@@ -44,9 +44,9 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val nameTextView : TextView = view.findViewById(R.id.fragment_movie_name)
-        val nameOriginalTextView : TextView = view.findViewById(R.id.fragment_movie_name_original)
-        val posterImg : ImageView = view.findViewById(R.id.fragment_image_movie)
+        val nameTextView : TextView = binding.root.findViewById(R.id.fragment_movie_name)
+        val nameOriginalTextView : TextView = binding.root.findViewById(R.id.fragment_movie_name_original)
+        val posterImg : ImageView = binding.root.findViewById(R.id.fragment_image_movie)
         val posterId : String = resources.getStringArray(R.array.posters)[poster!!]
 
 

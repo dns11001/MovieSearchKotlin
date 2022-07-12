@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, SearchFragment.newInstance())
                 .commitNow()
         }
+
     }
 
 }

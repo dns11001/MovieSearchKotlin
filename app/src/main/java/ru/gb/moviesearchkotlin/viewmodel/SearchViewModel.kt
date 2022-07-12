@@ -12,8 +12,10 @@ class SearchViewModel(val liveData:MutableLiveData<AppState> = MutableLiveData<A
         liveData.value = AppState.Loading
         Thread{
             sleep(2000L)
-            if (!random) liveData.postValue(AppState.Success(Any()))
-            else liveData.postValue(AppState.Error(Throwable()))
+            when (random) {
+                (true) -> liveData.postValue(AppState.Success(Any()))
+                (false) -> liveData.postValue(AppState.Error(Throwable()))
+            }
         }.start()
     }
 
