@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import ru.gb.moviesearchkotlin.R
-import ru.gb.moviesearchkotlin.model.Movie
-import java.nio.file.Paths
-import kotlin.io.path.Path
+import ru.gb.moviesearchkotlin.model.MovieDTO
 
 private const val POSTER = "poster"
 private const val NAME = "name"
@@ -60,11 +58,11 @@ class MovieFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(movie: Movie) =
+        fun newInstance(movie: MovieDTO) =
             MovieFragment().apply {
                 arguments = Bundle().apply {
                     putString(NAME, movie.name)
-                    putString(NAMEORIGINAL, movie.nameOriginal)
+                    putString(NAMEORIGINAL, movie.results.title)
                     putInt(POSTER, movie.idPoster)
                 }
             }

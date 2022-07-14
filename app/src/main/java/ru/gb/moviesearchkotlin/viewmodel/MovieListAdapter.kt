@@ -8,11 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.gb.moviesearchkotlin.R
-import ru.gb.moviesearchkotlin.model.Movie
+import ru.gb.moviesearchkotlin.model.MovieDTO
 
 
-class MovieAdapter(private val dataSet: ArrayList<Movie>, private val resources: Resources) :
-    RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieListAdapter(private val dataSet: ArrayList<MovieDTO>, private val resources: Resources) :
+    RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     private lateinit var mListener: onItemClickListener
 
@@ -37,6 +37,7 @@ class MovieAdapter(private val dataSet: ArrayList<Movie>, private val resources:
                 listener.onClickListener(adapterPosition)
             }
         }
+
 
     }
 
