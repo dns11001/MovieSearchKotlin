@@ -1,4 +1,4 @@
-package ru.gb.moviesearchkotlin.model
+package ru.gb.moviesearchkotlin.model.movie
 
 data class Result(
     val description: String,

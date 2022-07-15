@@ -1,21 +1,32 @@
 package ru.gb.moviesearchkotlin.view.searchfragment
 
-import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import ru.gb.moviesearchkotlin.R
 import ru.gb.moviesearchkotlin.databinding.SearchFragmentBinding
-import ru.gb.moviesearchkotlin.model.MovieDTO
+import ru.gb.moviesearchkotlin.model.movie.MovieDTO
+import ru.gb.moviesearchkotlin.model.movie.getLines
+import ru.gb.moviesearchkotlin.model.movie.initMovieList
 import ru.gb.moviesearchkotlin.viewmodel.MovieListAdapter
 import ru.gb.moviesearchkotlin.viewmodel.MovieFragment
 import ru.gb.moviesearchkotlin.viewmodel.SearchViewModel
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 
 class SearchFragment : Fragment() {
@@ -42,13 +53,39 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val data: ArrayList<MovieDTO> = initMovieList(this.resources)
-        val recyclerViewOne: RecyclerView = binding.root.findViewById(R.id.menu_recycler_view)
-        val recyclerViewTwo: RecyclerView = binding.root.findViewById(R.id.menu2_recycler_view)
-        initRecycleView(recyclerViewOne, data)
-        initRecycleView(recyclerViewTwo, data)
+
+        val searchEditText: AppCompatEditText = binding.root.findViewById(R.id.edit_text_find)
+        val searchButton: AppCompatButton = binding.root.findViewById(R.id.find_button)
+
+        val recyclerViewPopular: RecyclerView = binding.root.findViewById(R.id.menu_recycler_view)
+        val recyclerViewUpcoming: RecyclerView = binding.root.findViewById(R.id.menu2_recycler_view)
+        initRecycleView(recyclerViewPopular, data)
+        initRecycleView(recyclerViewUpcoming, data)
+
+        searchButton.setOnClickListener {
+            val editTextData = searchEditText.text.toString()
+            val uri = URL("https://imdb-api.com/en/API/Search/k_4i110l81/$editTextData")
+            var internetConnection: HttpsURLConnection? = null
+
+            internetConnection = uri.openConnection() as HttpsURLConnection
+            internetConnection.readTimeout = 5000
+            Thread {
+                val reader = BufferedReader(InputStreamReader(internetConnection.inputStream))
+                val result = getLines(reader)
+
+                val movie = Gson().fromJson(result, MovieDTO::class.java)
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .add(R.id.search_fragment, MovieFragment.newInstance(movie))
+                    .addToBackStack("")
+                    .commit() // Выкидывает с SocketTimeoutException: Что сделать, чтобы она не появлялась?
+
+            }.start()
+        }
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         viewModel.liveData.observe(
             viewLifecycleOwner
@@ -61,7 +98,7 @@ class SearchFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recycleView.layoutManager = layoutManager
 
-        val adapter = MovieListAdapter(data, resources)
+        val adapter = MovieListAdapter(data)
         recycleView.adapter = adapter
         adapter.setOnClickListener(object : MovieListAdapter.onItemClickListener {
             override fun onClickListener(position: Int) {
@@ -75,13 +112,6 @@ class SearchFragment : Fragment() {
         })
 
 
-    }
-
-    fun View.createAndShow(
-        text: String, actionText: String, action: (View)
-        -> Unit, length: Int = Snackbar.LENGTH_INDEFINITE
-    ) {
-        Snackbar.make(this, text, length).setAction(actionText, action).show()
     }
 
 

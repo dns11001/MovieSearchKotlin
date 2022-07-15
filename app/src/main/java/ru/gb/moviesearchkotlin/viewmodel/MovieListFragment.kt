@@ -9,17 +9,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import ru.gb.moviesearchkotlin.R
-import ru.gb.moviesearchkotlin.model.MovieDTO
+import ru.gb.moviesearchkotlin.model.movie.MovieDTO
 
 private const val POSTER = "poster"
 private const val NAME = "name"
 private const val NAMEORIGINAL = "name original"
+private const val DESCRIPTION = "description"
 
 class MovieFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var poster: Int? = null
     private var name: String? = null
     private var nameOriginal: String? = null
+    private var descriptionVar : String? = null
     private lateinit var binding: FragmentMovieBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,7 @@ class MovieFragment : Fragment() {
             name = it.getString(NAME)
             nameOriginal = it.getString(NAMEORIGINAL)
             poster = it.getInt(POSTER)
+            descriptionVar = it.getString(DESCRIPTION)
         }
     }
 
@@ -46,12 +49,15 @@ class MovieFragment : Fragment() {
         val nameOriginalTextView : TextView = binding.root.findViewById(R.id.fragment_movie_name_original)
         val posterImg : ImageView = binding.root.findViewById(R.id.fragment_image_movie)
         val posterId : String = resources.getStringArray(R.array.posters)[poster!!]
+        val descriptionView : TextView = binding.root.findViewById(R.id.fragment_movie_name_description)
 
 
         nameTextView.text = name
         nameOriginalTextView.text = nameOriginal
-        posterImg.setImageResource(resources.getIdentifier(posterId, "drawable",
-        requireContext().packageName))
+        descriptionView.text = descriptionVar
+        //posterImg.setImageResource(resources.getIdentifier(posterId, "drawable",
+        //requireContext().packageName))
+        posterImg.background = resources.getDrawable(R.drawable.zaglushka) // Я не понимаю, что ты хочешь
 
 
     }
@@ -61,9 +67,9 @@ class MovieFragment : Fragment() {
         fun newInstance(movie: MovieDTO) =
             MovieFragment().apply {
                 arguments = Bundle().apply {
-                    putString(NAME, movie.name)
-                    putString(NAMEORIGINAL, movie.results.title)
-                    putInt(POSTER, movie.idPoster)
+                    putString(NAME, movie.results[0].title)
+                    putString(NAMEORIGINAL, movie.results[0].title)
+                    putString(DESCRIPTION, movie.results[0].description)
                 }
             }
     }

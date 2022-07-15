@@ -1,6 +1,6 @@
 package ru.gb.moviesearchkotlin.model.popular
 
-data class Item(
+data class PopularMovie(
     val crew: String,
     val fullTitle: String,
     val localizedTitle: String,

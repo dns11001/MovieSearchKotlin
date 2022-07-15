@@ -28,21 +28,24 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edit_text_find"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:hint="Find movie"
-                    android:layout_centerHorizontal="true" />
+                    android:text="@string/tempText"/>
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/find_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Find movie"
                     android:layout_below="@id/edit_text_find"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="30dp"/>
+                    android:layout_marginBottom="30dp"
+                    android:text="Find movie" />
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"

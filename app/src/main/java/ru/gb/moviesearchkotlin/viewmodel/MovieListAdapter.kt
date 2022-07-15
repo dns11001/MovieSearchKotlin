@@ -8,10 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.gb.moviesearchkotlin.R
-import ru.gb.moviesearchkotlin.model.MovieDTO
+import ru.gb.moviesearchkotlin.model.movie.MovieDTO
 
 
-class MovieListAdapter(private val dataSet: ArrayList<MovieDTO>, private val resources: Resources) :
+class MovieListAdapter(private val dataSet: ArrayList<MovieDTO>) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     private lateinit var mListener: onItemClickListener
@@ -26,8 +26,7 @@ class MovieListAdapter(private val dataSet: ArrayList<MovieDTO>, private val res
 
     class ViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view) {
         val textView: TextView
-        val imageItem: ImageView
-
+        private val imageItem: ImageView
 
 
         init {
@@ -52,11 +51,12 @@ class MovieListAdapter(private val dataSet: ArrayList<MovieDTO>, private val res
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val posterId : String = resources.getStringArray(R.array.posters)[position]
+        //val posterId: String = resources.getStringArray(R.array.posters)[position]
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text = dataSet[position].name
+        viewHolder.textView.text = dataSet[position].results[0].title
+
 
     }
 

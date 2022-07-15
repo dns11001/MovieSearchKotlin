@@ -26,4 +26,13 @@
         <item>Borat</item>
         <item>Rocky</item>
     </string-array>
+
+    <string-array name="urls">
+        <item>https://imdb-api.com/en/API/SearchTitle/k_4i110l81/inception 2010</item>
+        <item>https://imdb-api.com/en/API/SearchTitle/k_4i110l81/leon the professional</item>
+        <item>https://imdb-api.com/en/API/SearchTitle/k_4i110l81/lost 2004</item>
+        <item>https://imdb-api.com/en/API/SearchTitle/k_4i110l81/rocky</item>
+        <item>https://imdb-api.com/en/API/SearchTitle/k_4i110l81/matrix</item>
+        <item>https://imdb-api.com/en/API/SearchTitle/k_4i110l81/gladiator</item>
+    </string-array>
 </resources>
