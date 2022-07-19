@@ -35,7 +35,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:hint="Find movie"
-                    android:text="@string/tempText"/>
+                    android:text="@string/tempText"
+                    android:textAlignment="center"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/find_button"
@@ -57,7 +58,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/menu_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:scrollbars="horizontal" />
         </LinearLayout>
 

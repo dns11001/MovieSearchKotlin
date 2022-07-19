@@ -1,8 +1,13 @@
 package ru.gb.moviesearchkotlin.model.movie
 
+import android.app.Activity
+import android.content.Context
 import android.content.res.Resources
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
 import ru.gb.moviesearchkotlin.R
 import ru.gb.moviesearchkotlin.utils.Utils
@@ -35,9 +40,10 @@ fun initMovieList(res: Resources): ArrayList<MovieDTO> {
             val reader = BufferedReader(InputStreamReader(internetConnection.inputStream))
             val result = getLines(reader)
 
-            movie = Gson().fromJson(result, MovieDTO::class.java)
-            arrayMovie.add(movie)
-
+            Handler(Looper.getMainLooper()).post(Runnable {
+                movie = Gson().fromJson(result, MovieDTO::class.java)
+                arrayMovie.add(movie)
+            })
         }.start() // Как сделать, чтобы внутри Thread он раз за разом наполнял ArrayList и выдал несколько для RecyclerView?
     }
 
