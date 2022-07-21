@@ -1,6 +1,5 @@
-package ru.gb.moviesearchkotlin.viewmodel
+package ru.gb.moviesearchkotlin.view.searchfragment
 
-import ru.gb.moviesearchkotlin.databinding.FragmentMovieBinding
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import ru.gb.moviesearchkotlin.R
+import ru.gb.moviesearchkotlin.databinding.FragmentMovieDetailsBinding
 import ru.gb.moviesearchkotlin.model.movie.MovieDTO
 
 private const val POSTER = "poster"
@@ -16,13 +16,13 @@ private const val NAME = "name"
 private const val NAMEORIGINAL = "name original"
 private const val DESCRIPTION = "description"
 
-class MovieFragment : Fragment() {
+class MovieDetailsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var poster: Int? = null
     private var name: String? = null
     private var nameOriginal: String? = null
-    private var descriptionVar : String? = null
-    private lateinit var binding: FragmentMovieBinding
+    private var descriptionVar: String? = null
+    private lateinit var binding: FragmentMovieDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,18 +38,20 @@ class MovieFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMovieBinding.inflate(layoutInflater)
+        binding = FragmentMovieDetailsBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val nameTextView : TextView = binding.root.findViewById(R.id.fragment_movie_name)
-        val nameOriginalTextView : TextView = binding.root.findViewById(R.id.fragment_movie_name_original)
-        val posterImg : ImageView = binding.root.findViewById(R.id.fragment_image_movie)
-        val posterId : String = resources.getStringArray(R.array.posters)[poster!!]
-        val descriptionView : TextView = binding.root.findViewById(R.id.fragment_movie_name_description)
+        val nameTextView: TextView = binding.root.findViewById(R.id.fragment_movie_name)
+        val nameOriginalTextView: TextView =
+            binding.root.findViewById(R.id.fragment_movie_name_original)
+        val posterImg: ImageView = binding.root.findViewById(R.id.fragment_image_movie)
+        val posterId: String = resources.getStringArray(R.array.posters)[poster!!]
+        val descriptionView: TextView =
+            binding.root.findViewById(R.id.fragment_movie_name_description)
 
 
         nameTextView.text = name
@@ -57,7 +59,8 @@ class MovieFragment : Fragment() {
         descriptionView.text = descriptionVar
         //posterImg.setImageResource(resources.getIdentifier(posterId, "drawable",
         //requireContext().packageName))
-        posterImg.background = resources.getDrawable(R.drawable.zaglushka) // Я не понимаю, что ты хочешь
+        posterImg.background =
+            resources.getDrawable(R.drawable.zaglushka) // Я не понимаю, что ты хочешь
 
 
     }
@@ -65,7 +68,7 @@ class MovieFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(movie: MovieDTO) =
-            MovieFragment().apply {
+            MovieDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putString(NAME, movie.results[0].title)
                     putString(NAMEORIGINAL, movie.results[0].title)

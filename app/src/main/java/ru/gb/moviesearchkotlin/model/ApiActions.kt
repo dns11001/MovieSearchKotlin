@@ -1,6 +1,7 @@
 package ru.gb.moviesearchkotlin.model
 
 import com.google.gson.Gson
+import okhttp3.Callback
 import ru.gb.moviesearchkotlin.model.popular.PopularMovie
 import ru.gb.moviesearchkotlin.model.popular.PopularMovieDTO
 import java.io.BufferedReader
@@ -8,8 +9,17 @@ import java.io.InputStreamReader
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-class ApiActions : DataInteractions {
-    override fun request() {
+class ApiActions : MovieRepository {
+    override fun getMovieDTOFromServer(requestLink: String, callback: Callback) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getPopularMovieFromServer(requestLink: String, callback: Callback) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUpcomingMovieFromServer(requestLink: String, callback: Callback) {
+        TODO("Not yet implemented")
     }
 
     public override fun initPopularMovieList() {
@@ -30,6 +40,8 @@ class ApiActions : DataInteractions {
         }.start()
     }
 
-    override fun requestUpcomingMovie() {
+    override fun initUpcomingMovieList() {
+        TODO("Not yet implemented")
     }
+
 }

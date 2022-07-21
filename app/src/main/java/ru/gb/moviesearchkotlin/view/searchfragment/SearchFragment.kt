@@ -1,5 +1,6 @@
 package ru.gb.moviesearchkotlin.view.searchfragment
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,8 +19,8 @@ import ru.gb.moviesearchkotlin.databinding.SearchFragmentBinding
 import ru.gb.moviesearchkotlin.model.movie.MovieDTO
 import ru.gb.moviesearchkotlin.model.movie.getLines
 import ru.gb.moviesearchkotlin.model.movie.initMovieList
+import ru.gb.moviesearchkotlin.servicesbroadcasts.BroadcastService
 import ru.gb.moviesearchkotlin.viewmodel.MovieListAdapter
-import ru.gb.moviesearchkotlin.viewmodel.MovieFragment
 import ru.gb.moviesearchkotlin.viewmodel.SearchViewModel
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -36,6 +37,8 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding: SearchFragmentBinding
     private lateinit var viewModel: SearchViewModel
+
+    private final val SERVICE = "Start service"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +60,13 @@ class SearchFragment : Fragment() {
         val data: ArrayList<MovieDTO> = initMovieList(this.resources)
 
         val searchEditText: AppCompatEditText = binding.root.findViewById(R.id.edit_text_find)
-        val searchButton: AppCompatButton = binding.root.findViewById(R.id.find_button)
 
         val recyclerViewPopular: RecyclerView = binding.root.findViewById(R.id.menu_recycler_view)
         val recyclerViewUpcoming: RecyclerView = binding.root.findViewById(R.id.menu2_recycler_view)
         initRecycleView(recyclerViewPopular, data)
         initRecycleView(recyclerViewUpcoming, data)
 
-        searchButton.setOnClickListener {
+        binding.findButton.setOnClickListener {
             val editTextData = searchEditText.text.toString()
             val uri = URL("https://imdb-api.com/en/API/Search/k_4i110l81/$editTextData")
             var internetConnection: HttpsURLConnection? = null
@@ -78,12 +80,25 @@ class SearchFragment : Fragment() {
                 val movie = Gson().fromJson(result, MovieDTO::class.java)
 
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .add(R.id.search_fragment, MovieFragment.newInstance(movie))
+                    .add(R.id.search_fragment, MovieDetailsFragment.newInstance(movie))
                     .addToBackStack("")
                     .commit() // Выкидывает с SocketTimeoutException: Что сделать, чтобы она не появлялась?
 
             }.start()
         }
+
+        binding.startService.setOnClickListener {
+            context?.let {
+                it.startService(Intent(it, BroadcastService::class.java).apply {
+                    putExtra(
+                        SERVICE,
+                        "Start"
+                    )
+                })
+            }
+        }
+
+
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         viewModel.liveData.observe(
             viewLifecycleOwner
@@ -103,7 +118,7 @@ class SearchFragment : Fragment() {
                 val movie = data[position]
 
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .add(R.id.search_fragment, MovieFragment.newInstance(movie))
+                    .add(R.id.search_fragment, MovieDetailsFragment.newInstance(movie))
                     .addToBackStack("")
                     .commit()
             }

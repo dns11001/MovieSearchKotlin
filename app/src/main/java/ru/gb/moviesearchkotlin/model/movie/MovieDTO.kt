@@ -24,6 +24,14 @@ data class MovieDTO(
     val searchType: String
 )
 
+data class Result(
+    val description: String,
+    val id: String,
+    val image: String,
+    val resultType: String,
+    val title: String
+)
+
 @RequiresApi(Build.VERSION_CODES.N)
 fun initMovieList(res: Resources): ArrayList<MovieDTO> {
     val arrayMovie: ArrayList<MovieDTO> = arrayListOf()
@@ -44,7 +52,7 @@ fun initMovieList(res: Resources): ArrayList<MovieDTO> {
                 movie = Gson().fromJson(result, MovieDTO::class.java)
                 arrayMovie.add(movie)
             })
-        }.start() // Как сделать, чтобы внутри Thread он раз за разом наполнял ArrayList и выдал несколько для RecyclerView?
+        }.start() 
     }
 
     return arrayMovie
